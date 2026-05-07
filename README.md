@@ -44,7 +44,7 @@ Desarrollar un sistema automático en MATLAB capaz de procesar señales ECG crud
 ```
 ecg-arritmias/
 │
-├── README.md                          ← Este archivo (moderador)
+├── README.md                          ← Este archivo
 │
 ├── docs/                              ← Documentación del proyecto
 │   ├── 1_reporte_fundamentacion.md    ← Marco teórico y justificación
@@ -158,13 +158,13 @@ ecg_clasificador
 
 ## Autores
 
-| Nombre | Rol |
-|--------|-----|
-| *(Tu nombre aquí)* | Desarrollador principal |
+BRIWER POLO
+OSCAR DIAZ
+ANDRES ROMERO
 
-**Institución:** *(Universidad / Programa)*  
-**Asignatura:** Procesamiento de Señales Médicas  
-**Año:** 2025
+UNIVERSIDAD DEL MAGDALENA, PROGRAMA DE INGENIERIA ELECTRONICA
+Procesamiento de Señales Médicas  
+2026
 
 ---
 
