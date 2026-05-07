@@ -1,13 +1,11 @@
 # 📊 Resultados Finales
 ## Reconocimiento y Clasificación de Arritmias ECG
 
-> **⚠️ PLANTILLA** — Completar al finalizar el proyecto.
+> **⚠️ PLANTILLA** — Completar 
 
 ---
 
-## 1. Resumen Ejecutivo
-
-*(2-3 párrafos describiendo qué se logró, qué tan bien funciona el sistema y las principales conclusiones.)*
+## 1. Resumen 
 
 ---
 
@@ -67,12 +65,4 @@
 
 *(Conclusiones finales del proyecto: ¿se cumplieron los objetivos? ¿Qué aprendieron? ¿Qué mejorarían?)*
 
----
 
-## 8. Recomendaciones para Trabajo Futuro
-
-*(Propuestas concretas para continuar el proyecto.)*
-
----
-
-*Fecha: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*
