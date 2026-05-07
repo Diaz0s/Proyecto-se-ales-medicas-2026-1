@@ -44,7 +44,7 @@ Desarrollar un sistema automático en MATLAB capaz de procesar señales ECG crud
 ```
 ecg-arritmias/
 │
-├── README.md                          ← Este archivo
+├── README.md                          ← Este archivo (moderador)
 │
 ├── docs/                              ← Documentación del proyecto
 │   ├── 1_reporte_fundamentacion.md    ← Marco teórico y justificación
@@ -118,8 +118,22 @@ ecg-arritmias/
    └── BPM > 100 → Taquicardia
 ```
 
-### Archivo principal
-- [`src/ecg_clasificador.m`](src/ecg_clasificador.m) — Script MATLAB completo
+### Archivos del proyecto
+
+| Script | Descripción |
+|--------|-------------|
+| [`src/ecg_clasificador.m`](src/ecg_clasificador.m) | Lectura, filtrado, detección QRS y clasificación por umbrales de BPM |
+| [`src/ecg_entrenamiento_rf.m`](src/ecg_entrenamiento_rf.m) | Extracción de 23 features por latido + entrenamiento Random Forest con anotaciones `.atr` |
+| [`src/ecg_prediccion.m`](src/ecg_prediccion.m) | Carga el modelo entrenado y predice latido a latido en nuevos registros |
+
+### Features extraídas por latido (23 total)
+
+| Categoría | Features |
+|-----------|---------|
+| **Morfológicas** | Amplitud R, mínimo, rango, media, std, skewness, kurtosis, energía, cruces por cero, duración QRS |
+| **Intervalos RR** | RR previo, RR siguiente, RR promedio local, ratios RR |
+| **Espectrales** | Potencia relativa en 3 bandas, frecuencia dominante |
+| **Forma de onda** | Pendiente de subida/bajada, área positiva, área absoluta |
 
 ---
 
@@ -158,13 +172,13 @@ ecg_clasificador
 
 ## Autores
 
-BRIWER POLO
-OSCAR DIAZ
-ANDRES ROMERO
+| Nombre | Rol |
+|--------|-----|
+| *(Tu nombre aquí)* | Desarrollador principal |
 
-UNIVERSIDAD DEL MAGDALENA, PROGRAMA DE INGENIERIA ELECTRONICA
-Procesamiento de Señales Médicas  
-2026
+**Institución:** *(Universidad / Programa)*  
+**Asignatura:** Procesamiento de Señales Médicas  
+**Año:** 2025
 
 ---
 
