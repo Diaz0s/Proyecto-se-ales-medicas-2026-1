@@ -172,13 +172,11 @@ ecg_clasificador
 
 ## Autores
 
-| Nombre | Rol |
-|--------|-----|
-| *(Tu nombre aquí)* | Desarrollador principal |
+BRIWER POLO 
+OSCAR DIAZ
+ANDRES ROMERO
 
-**Institución:** *(Universidad / Programa)*  
-**Asignatura:** Procesamiento de Señales Médicas  
-**Año:** 2025
+2026
 
 ---
 
