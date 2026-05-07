@@ -178,8 +178,4 @@ ANDRES ROMERO
 
 2026
 
----
 
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver [`LICENSE`](LICENSE) para más detalles.
