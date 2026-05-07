@@ -142,4 +142,3 @@ Colocar los archivos descargados en la carpeta `data/mitdb/` del repositorio.
 
 ---
 
-*Última actualización: 2025*
