@@ -1,0 +1,24 @@
+# ── Dataset (demasiado grande para el repositorio) ──
+data/mitdb/
+*.dat
+*.atr
+
+# ── Archivos generados por MATLAB ──
+*.asv
+*.m~
+*.mex*
+slprj/
+
+# ── Figuras generadas (opcional: comentar si quieres incluirlas) ──
+# evidencias/*.png
+# evidencias/*.fig
+
+# ── Sistemas operativos ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editores ──
+.vscode/
+*.swp
+*~
