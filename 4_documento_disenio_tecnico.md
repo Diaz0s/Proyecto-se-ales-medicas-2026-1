@@ -1,9 +1,7 @@
 # 🛠️ Documento de Diseño Técnico
 ## Reconocimiento y Clasificación de Arritmias ECG
 
-> **⚠️ PLANTILLA** — Completar con los detalles específicos de implementación del equipo.
 
----
 
 ## 1. Visión General del Sistema
 
