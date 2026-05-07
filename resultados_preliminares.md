@@ -7,9 +7,6 @@
 
 ## 1. Contexto
 
-**Fecha de pruebas:** \_\_\_\_\_\_\_\_\_\_\_  
-**Registros evaluados:** \_\_\_\_\_\_\_\_\_\_\_  
-**Objetivo de esta etapa:** Validar que la lectura de archivos, el filtrado y la detección de picos funcionen correctamente en señales básicas.
 
 ---
 
@@ -81,6 +78,3 @@ Ventana 10.0 - 15.0 s| BPM: 55.2 | Bradicardia
 
 *(Evaluación cualitativa del estado del sistema en esta etapa.)*
 
----
-
-*Fecha: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*
