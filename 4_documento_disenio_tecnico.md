@@ -202,6 +202,3 @@ ecg_filt = filtfilt(b, a, ecg);
 | Formato de datos | WFDB v10.x |
 
 ---
-
-*Documento elaborado por: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*  
-*Fecha: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*
