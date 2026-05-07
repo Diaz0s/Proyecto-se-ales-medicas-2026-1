@@ -1,9 +1,7 @@
 # 📊 Matriz Comparativa de Alternativas
 ## Reconocimiento y Clasificación de Arritmias ECG
 
-> **⚠️ PLANTILLA** — Completar con la justificación de las elecciones tecnológicas del equipo.
 
----
 
 ## 1. Comparativa de Bases de Datos ECG
 
@@ -99,8 +97,3 @@
 | Detección R | Umbral adaptativo por ventana | Sencillez y adaptabilidad |
 | Clasificador | Umbral clínico de BPM | Transparencia clínica |
 | Filtro | Butterworth Bp 4°, 0.5–40 Hz | Preserva morfología QRS |
-
----
-
-*Documento elaborado por: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*  
-*Fecha: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_*
