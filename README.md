@@ -100,22 +100,296 @@ ecg-arritmias/
 ### Pipeline de Procesamiento
 
 ```
-[Archivo .dat/.hea]
-       ↓
-[Lectura WFDB]  →  Formato 212 o Formato 16
-       ↓
-[Normalización por ganancia]
-       ↓
-[Filtrado Butterworth 4° orden, 0.5–40 Hz]
-       ↓
-[Detección de picos R por ventanas + normalización local]
-       ↓
-[Identificación de complejo QRS (Q y S)]
-       ↓
-[Clasificación por ventanas de 5s]
-   ├── BPM < 60  → Bradicardia
-   ├── 60–100    → Normal
-   └── BPM > 100 → Taquicardia
+┌────────────────────────────────────────────┐
+│ 1. ADQUISICIÓN DE DATOS ECG                │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+         Archivo WFDB (.dat + .hea)
+                      │
+                      ▼
+┌────────────────────────────────────────────┐
+│ 2. LECTURA Y DECODIFICACIÓN                │
+├────────────────────────────────────────────┤
+│ • Lectura del archivo .hea                 │
+│ • Obtención de Fs                          │
+│ • Obtención del número de canales          │
+│ • Obtención del formato (212 o 16 bits)    │
+│ • Obtención de la ganancia ADC             │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+┌────────────────────────────────────────────┐
+│ 3. RECONSTRUCCIÓN DE LA SEÑAL              │
+├────────────────────────────────────────────┤
+│ Formato 212                               │
+│ • Separación de muestras empaquetadas      │
+│ • Conversión a valores con signo           │
+│                                            │
+│ Formato 16                                │
+│ • Lectura directa int16                    │
+│ • Conversión a matriz multicanal           │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+┌────────────────────────────────────────────┐
+│ 4. ESCALAMIENTO FISIOLÓGICO                │
+├────────────────────────────────────────────┤
+│ ECG(mV)=ADC/Gain                           │
+│                                            │
+│ Conversión de cuentas digitales            │
+│ a milivoltios clínicos                     │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+┌────────────────────────────────────────────┐
+│ 5. SELECCIÓN DE DERIVACIÓN                 │
+├────────────────────────────────────────────┤
+│ Canal 1                                    │
+│ Canal 2                                    │
+│ ...                                        │
+│ Canal N                                    │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+┌────────────────────────────────────────────┐
+│ 6. SELECCIÓN DE VENTANA TEMPORAL           │
+├────────────────────────────────────────────┤
+│ t_inicio                                   │
+│ t_fin                                      │
+│                                            │
+│ Reduce la región de análisis               │
+│ para procesamiento local                   │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+              ECG DE TRABAJO
+┌────────────────────────────────────────────┐
+│ 7. PREPROCESAMIENTO ECG                    │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+
+    ┌─────────────────────────────┐
+    │ Eliminación Baseline Wander │
+    │ HPF Butterworth 0.5 Hz      │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+
+    ┌─────────────────────────────┐
+    │ Reducción Ruido Muscular    │
+    │ LPF Butterworth 40 Hz       │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+
+    ┌─────────────────────────────┐
+    │ Eliminación Red Eléctrica   │
+    │ Notch 50 Hz                 │
+    │ Notch 60 Hz                 │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+
+    ┌─────────────────────────────┐
+    │ Realce del Complejo QRS     │
+    │ BandPass 8–20 Hz            │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+
+          ECG PREPROCESADO
+┌────────────────────────────────────────────┐
+│ 8. DISEÑO DEL FILTRO                       │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+
+Tipo de filtro
+│
+├── Pasa Bajos
+├── Pasa Altos
+├── Pasa Banda
+├── Notch 50 Hz
+└── Notch 60 Hz
+
+                      │
+                      ▼
+
+Método de diseño
+│
+├── Butterworth
+├── Chebyshev I
+├── Chebyshev II
+├── Elíptico
+└── FIR Kaiser
+
+                      │
+                      ▼
+
+Generación de coeficientes
+b[n], a[n]
+
+                      │
+                      ▼
+
+Filtrado de fase cero
+filtfilt(b,a,x)
+
+                      │
+                      ▼
+
+ECG FILTRADO
+┌────────────────────────────────────────────┐
+│ 9. ANÁLISIS ESPECTRAL                      │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+
+                ECG
+
+        ┌───────┼─────────┐
+        │       │         │
+        ▼       ▼         ▼
+
+      FFT     PSD      STFT
+               │
+               │
+               ▼
+
+ FFT
+ • Frecuencias dominantes
+ • Armónicos
+
+ PSD Welch
+ • Potencia por banda
+ • Distribución energética
+
+ STFT
+ • Evolución temporal
+ • Mapa tiempo-frecuencia
+┌────────────────────────────────────────────┐
+│ 10. DETECCIÓN QRS                          │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+
+BandPass 5-15 Hz
+
+                      │
+                      ▼
+
+Derivada
+
+s'(n)
+
+                      │
+                      ▼
+
+Cuadrado
+
+[s'(n)]²
+
+                      │
+                      ▼
+
+Integración móvil
+
+movmean()
+
+150 ms
+
+                      │
+                      ▼
+
+Normalización local
+
+ventanas de 3 s
+
+                      │
+                      ▼
+
+Detección adaptativa
+
+findpeaks()
+
+                      │
+                      ▼
+
+Refinamiento
+
+máximo real ECG
+
+                      │
+                      ▼
+
+Picos R
+┌────────────────────────────────────────────┐
+│ 11. EXTRACCIÓN DE PARÁMETROS               │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+
+R_locs
+
+                      │
+                      ▼
+
+RR = diff(R_locs)/Fs
+
+                      │
+                      ▼
+
+FC = 60/RR
+
+                      │
+                      ▼
+
+RR medio
+
+                      │
+                      ▼
+
+STD(RR)
+
+(HRV básica)
+┌────────────────────────────────────────────┐
+│ 12. CLASIFICACIÓN                          │
+└─────────────────────┬──────────────────────┘
+                      │
+                      ▼
+
+Ventanas de 5 segundos
+
+                      │
+                      ▼
+
+BPM local
+
+                      │
+      ┌───────────────┼───────────────┐
+      ▼               ▼               ▼
+
+ BPM < 60       60 ≤ BPM ≤100     BPM > 100
+
+ Bradicardia       Normal          Taquicardia
+┌────────────────────────────────────────────┐
+│ 13. VISUALIZACIÓN Y REPORTE                │
+└────────────────────────────────────────────┘
+
+• ECG original
+• ECG filtrado
+• Comparación antes/después
+• FFT
+• PSD Welch
+• Espectrograma
+• Detección QRS
+• Intervalos RR
+• Frecuencia cardíaca media
+• Variabilidad RR (HRV)
+• Diagnóstico automático
+• Reporte textual final
 ```
 
 ### Archivos del proyecto
