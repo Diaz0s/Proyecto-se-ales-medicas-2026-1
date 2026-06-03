@@ -31,6 +31,7 @@ Este proyecto implementa un sistema de reconocimiento y clasificación de arritm
 
 - **Lectura** de archivos binarios en formato WFDB (`.dat` + `.hea`) de la base MIT-BIH
 - **Preprocesamiento** mediante filtrado Butterworth banda-paso (0.5–40 Hz)
+- **procesamiento** modificable mediante diferentes tipos de filtros
 - **Detección** de picos R y complejo QRS mediante análisis por ventanas
 - **Clasificación** del ritmo cardíaco: Normal, Bradicardia y Taquicardia
 
